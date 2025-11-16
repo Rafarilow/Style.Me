@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ produto.nome }}</h1>
+    
+    <p>{{ produto.descricao }}</p>
+    <h2>R$ {{ "%.2f"|format(produto.preco) }}</h2>
+    <p>Disponível em estoque: {{ produto.estoque }}</p>
+
+    <hr>
+
+    <form action="{{ url_for('carrinho') }}" method="POST">
+        <input type="hidden" name="produto_id" value="{{ produto.id }}">
+        
+        <div>
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" name="quantidade" id="quantidade" value="1" min="1" max="{{ produto.estoque }}">
+        </div>
+        
+        <button type="submit" class="btn">Adicionar ao Carrinho</button>
+    </form>
+{% endblock %}

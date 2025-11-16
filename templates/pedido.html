@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Detalhes do Pedido #{{ pedido.id }}</h1>
+    
+    <p><strong>Data do Pedido:</strong> {{ pedido.data }}</p>
+    <p><strong>Status do Pedido:</strong> {{ pedido.status | capitalize }}</p>
+
+    <hr>
+    
+    <h3>Pagamento</h3>
+    <p><strong>Método:</strong> {{ pagamento.tipo | capitalize }}</p>
+    <p><strong>Status:</strong> {{ pagamento.status | capitalize }}</p>
+    <p><strong>Valor:</strong> R$ {{ "%.2f"|format(pagamento.valor) }}</p>
+
+    <hr>
+
+    <h3>Itens Inclusos</h3>
+    <div class="order-list">
+        {% for item in itens_do_pedido %}
+            <div class="order-item">
+                <span>
+                    <strong>{{ item.nome_produto }}</strong> 
+                    (Qtd: {{ item.quantidade }})
+                </span>
+                <span>Subtotal: R$ {{ "%.2f"|format(item.preco_unitario * item.quantidade) }}</span>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

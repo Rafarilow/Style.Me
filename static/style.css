@@ -1,0 +1,227 @@
+/* Reset básico e fontes */
+body, h1, h2, p, ul, li, form, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    /* Garante que o footer fique no fim em páginas curtas */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header e Navegação */
+header {
+    background-color: #333;
+    color: white;
+    padding: 1rem 0;
+    border-bottom: 2px solid #555;
+    width: 100%; /* Garante que o header ocupe toda a largura */
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+nav .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 1.5rem;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #ddd;
+}
+
+/* Conteúdo Principal */
+.container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 100%; /* Garante que o container se ajuste */
+    flex-grow: 1; /* Faz o main crescer e empurrar o footer para baixo */
+}
+
+/* ===== ESTILOS PARA MENSAGENS FLASH (NOVO) ===== */
+.flash-messages {
+    margin-bottom: 1rem;
+}
+.alert {
+    padding: 0.8rem;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+
+/* Grid de Produtos */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fafafa;
+    /* Adicionado para que a imagem não vaze */
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column; /* Organiza o card verticalmente */
+}
+
+/* ===== ESTILO PARA A IMAGEM DO PRODUTO (NOVO) ===== */
+.product-image {
+    width: 100%;
+    height: 200px; /* Altura fixa para manter os cards alinhados */
+    object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
+    display: block;
+}
+
+/* Estilo para o conteúdo do card (nome, preço, etc.) */
+.product-card h3 {
+    margin: 1rem 1rem 0.5rem 1rem;
+}
+
+.product-card p {
+    margin: 0 1rem 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+.product-card p:first-of-type { /* Preço */
+    font-weight: bold;
+    color: #007bff;
+    font-size: 1.1rem;
+}
+.product-card .btn {
+    /* Faz o botão ficar na base do card */
+    margin: auto 1rem 1rem 1rem; 
+}
+
+
+/* Formulários */
+form {
+    max-width: 500px;
+    margin: 1rem auto;
+    padding: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form div {
+    margin-bottom: 1rem;
+}
+
+form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="number"],
+form select {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Botões */
+.btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 0.7rem 1.2rem;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Carrinho e Pedido */
+.cart-item, .order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-total, .order-summary {
+    margin-top: 1.5rem;
+    text-align: right;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: auto; /* Garante que o footer fique no fim */
+    padding: 1rem;
+    background-color: #333;
+    color: #aaa;
+    width: 100%; /* Garante que o footer ocupe toda a largura */
+}

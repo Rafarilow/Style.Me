@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Seu Carrinho de Compras</h1>
+
+    {% if itens_carrinho %}
+        <div class="cart-list">
+            {% for item in itens_carrinho %}
+                <div class="cart-item">
+                    <span>
+                        <strong>{{ item.nome_produto }}</strong> 
+                        (Qtd: {{ item.quantidade }})
+                    </span>
+                    <span>R$ {{ "%.2f"|format(item.preco_unitario * item.quantidade) }}</span>
+                    </div>
+            {% endfor %}
+        </div>
+
+        <div class="cart-total">
+            <p>Total: R$ {{ "%.2f"|format(total_carrinho) }}</p>
+        </div>
+
+        <div style="text-align: right; margin-top: 1rem;">
+            <a href="{{ url_for('checkout') }}" class="btn">Ir para Checkout</a>
+        </div>
+
+    {% else %}
+        <p>Seu carrinho está vazio.</p>
+        <a href="{{ url_for('index') }}" class="btn">Ver produtos</a>
+    {% endif %}
+{% endblock %}

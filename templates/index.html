@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Catálogo de Produtos</h1>
+    
+    <!-- Exibe mensagens (ex: "Produto adicionado!") -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+              <!-- Adiciona classes de estilo para as mensagens -->
+              <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="product-grid">
+        <!-- O backend (Flask) deve passar a lista 'produtos' -->
+        {% for produto in produtos %}
+            <div class="product-card">
+                
+                <!-- ===== IMAGEM ADICIONADA AQUI ===== -->
+                <img src="{{ produto.imagem_url }}" 
+                     alt="[Imagem de {{ produto.nome }}]" 
+                     class="product-image"
+                     onerror="this.src='https://placehold.co/600x400/ccc/999?text=Sem+Imagem'">
+                
+                <!-- 'produto.nome', 'produto.preco' vêm da tabela 'produtos' -->
+                <h3>{{ produto.nome }}</h3>
+                <p>R$ {{ "%.2f"|format(produto.preco) }}</p>
+                <p>Estoque: {{ produto.estoque }}</p>
+                
+                <!-- Link para detalhes do produto -->
+                <a href="{{ url_for('detalhes_produto', id=produto.id) }}" class="btn btn-secondary">
+                    Ver Detalhes
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

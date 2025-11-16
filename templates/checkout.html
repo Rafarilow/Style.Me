@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Finalizar Pedido</h1>
+
+    <h2>Revisão dos Itens</h2>
+    {% if itens_carrinho %}
+        <div class="cart-list">
+            {% for item in itens_carrinho %}
+                <div class="cart-item">
+                    <span><strong>{{ item.nome_produto }}</strong> (Qtd: {{ item.quantidade }})</span>
+                    <span>R$ {{ "%.2f"|format(item.preco_unitario * item.quantidade) }}</span>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="cart-total">
+            <p>Total a Pagar: R$ {{ "%.2f"|format(total_carrinho) }}</p>
+        </div>
+
+        <hr>
+
+        <h2>Pagamento</h2>
+        <form action="{{ url_for('checkout') }}" method="POST">
+            <div>
+                <label for="tipo_pagamento">Método de Pagamento:</label>
+                <select id="tipo_pagamento" name="tipo_pagamento" required>
+                    <option value="cartao">Cartão de Crédito</option>
+                    <option value="pix">Pix</option>
+                    <option value="boleto">Boleto</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn">Confirmar e Pagar</button>
+        </form>
+
+    {% else %}
+        <p>Seu carrinho está vazio. Não é possível finalizar a compra.</p>
+        <a href="{{ url_for('index') }}" class="btn">Voltar ao catálogo</a>
+    {% endif %}
+{% endblock %}
