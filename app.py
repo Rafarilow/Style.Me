@@ -249,6 +249,17 @@ def checkout():
 
     total_carrinho = sum(item['preco'] * item['quantidade'] for item in carrinho_session.values())
 
+    # 🔧 CONVERTER CARRINHO PARA A MESMA ESTRUTURA USADA NO TEMPLATE
+    itens_para_template = []
+    for pid, item in carrinho_session.items():
+        itens_para_template.append({
+            'produto_id': pid,
+            'nome_produto': item['nome'],
+            'preco_unitario': item['preco'],
+            'quantidade': item['quantidade'],
+            'subtotal': item['preco'] * item['quantidade']
+        })
+
     if request.method == 'POST':
         tipo_pagamento = request.form.get('tipo_pagamento')
         cliente_id = session['cliente_id']
@@ -295,7 +306,8 @@ def checkout():
             flash(f'Erro ao processar o pedido: {str(e)}', 'danger')
             return redirect(url_for('checkout'))
 
-    return render_template('checkout.html', itens_carrinho=carrinho_session, total_carrinho=total_carrinho)
+    return render_template('checkout.html', itens_carrinho=itens_para_template, total_carrinho=total_carrinho)
+
 
 
 @app.route('/pedido/<int:id>')
