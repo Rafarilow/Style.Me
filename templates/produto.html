@@ -1,22 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{ produto.nome }}</h1>
-    
-    <p>{{ produto.descricao }}</p>
-    <h2>R$ {{ "%.2f"|format(produto.preco) }}</h2>
-    <p>Disponível em estoque: {{ produto.estoque }}</p>
+<div class="product-detail">
+    <div class="product-detail-image">
+        <img src="{{ produto.imagem_url }}"
+             alt="{{ produto.nome }}"
+             onerror="this.src='https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=800'">
+    </div>
 
-    <hr>
+    <div class="product-detail-info">
+        <h1>{{ produto.nome }}</h1>
+        <p class="product-description">{{ produto.descricao }}</p>
 
-    <form action="{{ url_for('carrinho') }}" method="POST">
-        <input type="hidden" name="produto_id" value="{{ produto.id }}">
-        
-        <div>
-            <label for="quantidade">Quantidade:</label>
-            <input type="number" name="quantidade" id="quantidade" value="1" min="1" max="{{ produto.estoque }}">
+        <div class="product-detail-price">
+            <span class="price-label">Preço</span>
+            <span class="price-value">R$ {{ "%.2f"|format(produto.preco) }}</span>
         </div>
-        
-        <button type="submit" class="btn">Adicionar ao Carrinho</button>
-    </form>
+
+        <p class="stock-info">{{ produto.estoque }} peças disponíveis</p>
+
+        <form action="{{ url_for('carrinho') }}" method="POST" class="add-to-cart-form">
+            <input type="hidden" name="produto_id" value="{{ produto.id }}">
+
+            <div class="form-group">
+                <label for="quantidade">Quantidade</label>
+                <input type="number" name="quantidade" id="quantidade" value="1" min="1" max="{{ produto.estoque }}">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">Adicionar ao Carrinho</button>
+        </form>
+
+        <a href="{{ url_for('index') }}" class="btn btn-secondary btn-full">Voltar ao Catálogo</a>
+    </div>
+</div>
 {% endblock %}

@@ -78,7 +78,7 @@ with app.app_context():
         # ===== PRODUTOS ATUALIZADOS COM IMAGEM E PREÇO =====
         
         p1 = Produto(
-            nome="Teclado Fodastico",
+            nome="Camisa",
             descricao="Uma camiseta de algodão confortável para desenvolvedores Python.",
             preco=79.90,
             estoque=50,
@@ -86,7 +86,7 @@ with app.app_context():
         )
         
         p2 = Produto(
-            nome="Caneca Python",
+            nome="Short",
             descricao="Caneca de cerâmica preta (300ml) para seu café.",
             preco=39.90,
             estoque=100,
@@ -95,7 +95,7 @@ with app.app_context():
 
         # ===== NOVO PRODUTO ADICIONADO =====
         p3 = Produto(
-            nome="Mousepad Coder",
+            nome="Tenis",
             descricao="Mousepad ergonômico com atalhos de VS Code.",
             preco=55.00,
             estoque=30,
@@ -103,7 +103,7 @@ with app.app_context():
         )
 
         p4 = Produto(
-            nome="Mousepad Coder",
+            nome="Acessorios",
             descricao="Mousepad ergonômico com atalhos de VS Code.",
             preco=55.00,
             estoque=30,
@@ -111,7 +111,7 @@ with app.app_context():
         )
 
         p5 = Produto(
-            nome="Mousepad Coder",
+            nome="Boné",
 
             
             descricao="Mousepad ergonômico com atalhos de VS Code.",

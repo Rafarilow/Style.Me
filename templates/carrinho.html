@@ -1,31 +1,39 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Seu Carrinho de Compras</h1>
+<div class="page-header">
+    <h1>Carrinho de Compras</h1>
+</div>
 
-    {% if itens_carrinho %}
+{% if itens_carrinho %}
+    <div class="cart-container">
         <div class="cart-list">
             {% for item in itens_carrinho %}
                 <div class="cart-item">
-                    <span>
-                        <strong>{{ item.nome_produto }}</strong> 
-                        (Qtd: {{ item.quantidade }})
-                    </span>
-                    <span>R$ {{ "%.2f"|format(item.preco_unitario * item.quantidade) }}</span>
+                    <div class="cart-item-info">
+                        <h3>{{ item.nome_produto }}</h3>
+                        <p class="cart-item-qty">Quantidade: {{ item.quantidade }}</p>
                     </div>
+                    <div class="cart-item-price">
+                        <p>R$ {{ "%.2f"|format(item.preco_unitario * item.quantidade) }}</p>
+                    </div>
+                </div>
             {% endfor %}
         </div>
 
-        <div class="cart-total">
-            <p>Total: R$ {{ "%.2f"|format(total_carrinho) }}</p>
+        <div class="cart-summary">
+            <div class="cart-total">
+                <span>Total</span>
+                <span class="total-value">R$ {{ "%.2f"|format(total_carrinho) }}</span>
+            </div>
+            <a href="{{ url_for('checkout') }}" class="btn btn-primary btn-full">Finalizar Compra</a>
         </div>
+    </div>
 
-        <div style="text-align: right; margin-top: 1rem;">
-            <a href="{{ url_for('checkout') }}" class="btn">Ir para Checkout</a>
-        </div>
-
-    {% else %}
-        <p>Seu carrinho está vazio.</p>
-        <a href="{{ url_for('index') }}" class="btn">Ver produtos</a>
-    {% endif %}
+{% else %}
+    <div class="empty-state">
+        <p>Seu carrinho está vazio</p>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Explorar Catálogo</a>
+    </div>
+{% endif %}
 {% endblock %}

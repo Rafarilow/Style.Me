@@ -1,40 +1,55 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="page-header">
     <h1>Finalizar Pedido</h1>
+</div>
 
-    <h2>Revisão dos Itens</h2>
-    {% if itens_carrinho %}
-        <div class="cart-list">
-            {% for item in itens_carrinho %}
-                <div class="cart-item">
-                    <span><strong>{{ item.nome_produto }}</strong> (Qtd: {{ item.quantidade }})</span>
-                    <span>R$ {{ "%.2f"|format(item.preco_unitario * item.quantidade) }}</span>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="cart-total">
-            <p>Total a Pagar: R$ {{ "%.2f"|format(total_carrinho) }}</p>
-        </div>
-
-        <hr>
-
-        <h2>Pagamento</h2>
-        <form action="{{ url_for('checkout') }}" method="POST">
-            <div>
-                <label for="tipo_pagamento">Método de Pagamento:</label>
-                <select id="tipo_pagamento" name="tipo_pagamento" required>
-                    <option value="cartao">Cartão de Crédito</option>
-                    <option value="pix">Pix</option>
-                    <option value="boleto">Boleto</option>
-                </select>
+{% if itens_carrinho %}
+    <div class="checkout-container">
+        <div class="checkout-items">
+            <h2>Resumo do Pedido</h2>
+            <div class="cart-list">
+                {% for item in itens_carrinho %}
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <h3>{{ item.nome_produto }}</h3>
+                            <p class="cart-item-qty">Quantidade: {{ item.quantidade }}</p>
+                        </div>
+                        <div class="cart-item-price">
+                            <p>R$ {{ "%.2f"|format(item.preco_unitario * item.quantidade) }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-            
-            <button type="submit" class="btn">Confirmar e Pagar</button>
-        </form>
 
-    {% else %}
-        <p>Seu carrinho está vazio. Não é possível finalizar a compra.</p>
-        <a href="{{ url_for('index') }}" class="btn">Voltar ao catálogo</a>
-    {% endif %}
+            <div class="cart-total">
+                <span>Total</span>
+                <span class="total-value">R$ {{ "%.2f"|format(total_carrinho) }}</span>
+            </div>
+        </div>
+
+        <div class="checkout-payment">
+            <h2>Pagamento</h2>
+            <form action="{{ url_for('checkout') }}" method="POST" class="payment-form">
+                <div class="form-group">
+                    <label for="tipo_pagamento">Método de Pagamento</label>
+                    <select id="tipo_pagamento" name="tipo_pagamento" required>
+                        <option value="cartao">Cartão de Crédito</option>
+                        <option value="pix">Pix</option>
+                        <option value="boleto">Boleto Bancário</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">Confirmar Pagamento</button>
+            </form>
+        </div>
+    </div>
+
+{% else %}
+    <div class="empty-state">
+        <p>Seu carrinho está vazio</p>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Explorar Catálogo</a>
+    </div>
+{% endif %}
 {% endblock %}

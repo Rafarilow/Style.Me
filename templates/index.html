@@ -1,41 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Catálogo de Produtos</h1>
-    
-    <!-- Exibe mensagens (ex: "Produto adicionado!") -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <div class="flash-messages">
-            {% for category, message in messages %}
-              <!-- Adiciona classes de estilo para as mensagens -->
-              <div class="alert alert-{{ category }}">{{ message }}</div>
-            {% endfor %}
-        </div>
-      {% endif %}
-    {% endwith %}
+<div class="hero-section">
+    <h1>Coleção Atemporal</h1>
+    <p class="hero-subtitle">Peças exclusivas para um guarda-roupa sofisticado</p>
+</div>
 
-    <div class="product-grid">
-        <!-- O backend (Flask) deve passar a lista 'produtos' -->
-        {% for produto in produtos %}
-            <div class="product-card">
-                
-                <!-- ===== IMAGEM ADICIONADA AQUI ===== -->
-                <img src="{{ produto.imagem_url }}" 
-                     alt="[Imagem de {{ produto.nome }}]" 
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<div class="product-grid">
+    {% for produto in produtos %}
+        <div class="product-card">
+            <div class="product-image-wrapper">
+                <img src="{{ produto.imagem_url }}"
+                     alt="{{ produto.nome }}"
                      class="product-image"
-                     onerror="this.src='https://placehold.co/600x400/ccc/999?text=Sem+Imagem'">
-                
-                <!-- 'produto.nome', 'produto.preco' vêm da tabela 'produtos' -->
+                     onerror="this.src='https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=600'">
+            </div>
+
+            <div class="product-info">
                 <h3>{{ produto.nome }}</h3>
-                <p>R$ {{ "%.2f"|format(produto.preco) }}</p>
-                <p>Estoque: {{ produto.estoque }}</p>
-                
-                <!-- Link para detalhes do produto -->
-                <a href="{{ url_for('detalhes_produto', id=produto.id) }}" class="btn btn-secondary">
+                <p class="product-price">R$ {{ "%.2f"|format(produto.preco) }}</p>
+                <p class="product-stock">{{ produto.estoque }} disponíveis</p>
+
+                <a href="{{ url_for('detalhes_produto', id=produto.id) }}" class="btn btn-primary">
                     Ver Detalhes
                 </a>
             </div>
-        {% endfor %}
-    </div>
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}

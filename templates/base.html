@@ -4,20 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Style.Me</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <header>
         <nav>
-            <a href="{{ url_for('index') }}" class="logo">Style.Me</a>
+            <a href="{{ url_for('index') }}" class="logo">STYLE.ME</a>
             <ul>
-                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('index') }}">Catálogo</a></li>
                 <li><a href="{{ url_for('carrinho') }}">Carrinho</a></li>
-                
+
                 {% if 'cliente_id' in session %}
-                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    <li><a href="{{ url_for('logout') }}">Sair</a></li>
                 {% else %}
-                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('login') }}">Entrar</a></li>
                     <li><a href="{{ url_for('registrar') }}">Registrar</a></li>
                 {% endif %}
             </ul>
@@ -29,7 +32,10 @@
     </main>
 
     <footer>
-        <p>&copy; Trabalho Back End</p>
+        <div class="footer-content">
+            <p>STYLE.ME © 2024</p>
+            <p>Elegância Atemporal</p>
+        </div>
     </footer>
 </body>
 </html>

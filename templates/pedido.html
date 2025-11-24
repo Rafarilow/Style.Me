@@ -1,30 +1,58 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Detalhes do Pedido #{{ pedido.id }}</h1>
-    
-    <p><strong>Data do Pedido:</strong> {{ pedido.data }}</p>
-    <p><strong>Status do Pedido:</strong> {{ pedido.status | capitalize }}</p>
+<div class="page-header">
+    <h1>Pedido #{{ pedido.id }}</h1>
+</div>
 
-    <hr>
-    
-    <h3>Pagamento</h3>
-    <p><strong>Método:</strong> {{ pagamento.tipo | capitalize }}</p>
-    <p><strong>Status:</strong> {{ pagamento.status | capitalize }}</p>
-    <p><strong>Valor:</strong> R$ {{ "%.2f"|format(pagamento.valor) }}</p>
+<div class="order-container">
+    <div class="order-info-section">
+        <div class="info-group">
+            <span class="info-label">Data do Pedido</span>
+            <span class="info-value">{{ pedido.data }}</span>
+        </div>
 
-    <hr>
-
-    <h3>Itens Inclusos</h3>
-    <div class="order-list">
-        {% for item in itens_do_pedido %}
-            <div class="order-item">
-                <span>
-                    <strong>{{ item.nome_produto }}</strong> 
-                    (Qtd: {{ item.quantidade }})
-                </span>
-                <span>Subtotal: R$ {{ "%.2f"|format(item.preco_unitario * item.quantidade) }}</span>
-            </div>
-        {% endfor %}
+        <div class="info-group">
+            <span class="info-label">Status</span>
+            <span class="info-value status-{{ pedido.status }}">{{ pedido.status | capitalize }}</span>
+        </div>
     </div>
+
+    <div class="order-payment-section">
+        <h2>Pagamento</h2>
+        <div class="payment-info">
+            <div class="info-group">
+                <span class="info-label">Método</span>
+                <span class="info-value">{{ pagamento.tipo | capitalize }}</span>
+            </div>
+
+            <div class="info-group">
+                <span class="info-label">Status</span>
+                <span class="info-value status-{{ pagamento.status }}">{{ pagamento.status | capitalize }}</span>
+            </div>
+
+            <div class="info-group">
+                <span class="info-label">Valor</span>
+                <span class="info-value price-value">R$ {{ "%.2f"|format(pagamento.valor) }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="order-items-section">
+        <h2>Itens do Pedido</h2>
+        <div class="cart-list">
+            {% for item in itens_do_pedido %}
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <h3>{{ item.nome_produto }}</h3>
+                        <p class="cart-item-qty">Quantidade: {{ item.quantidade }}</p>
+                    </div>
+                    <div class="cart-item-price">
+                        <p>R$ {{ "%.2f"|format(item.preco_unitario * item.quantidade) }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}
